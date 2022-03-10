@@ -1,44 +1,53 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdk 29
+    compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.ace.ucv.wonderful.places"
-        minSdk 21
-        targetSdk 29
-        versionCode 1
-        versionName "1.0"
+                applicationId "com.ace.ucv.wonderful.places"
+                minSdkVersion 21
+                targetSdkVersion 29
+                versionCode 1
+                versionName "1.0"
+                testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            }
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+            buildTypes {
+                release {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                }
+            }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    compileSdkVersion 29
-}
 
-dependencies {
+        dependencies {
 
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-}
+            implementation fileTree(dir: "libs", include: ["*.jar"])
+            implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+            implementation 'androidx.core:core-ktx:1.2.0'
+            implementation 'androidx.appcompat:appcompat:1.1.0'
+            implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+            // Adding an google material design dependency for using material components
+            implementation 'com.google.android.material:material:1.0.0'
+
+            // Dexter runtime permissions
+            // https://github.com/Karumi/Dexter
+            implementation 'com.karumi:dexter:6.0.1'
+
+            // https://github.com/hdodenhof/CircleImageView
+            implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+            // This is for place picker
+            implementation 'com.google.android.libraries.places:places:2.1.0'
+
+            // This is for getting the location
+            implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+            testImplementation 'junit:junit:4.13'
+            androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+            androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+        }
