@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Wonderful Places</string>
 
+    <string name="google_maps_api_key">AIzaSyBHrw-gvnojH5o__g5acIcZ30OgFbaC61o</string>
+
     <string name="edit_text_hint_title">Title</string>
     <string name="edit_text_hint_description">Description</string>
     <string name="edit_text_hint_date">Date</string>
