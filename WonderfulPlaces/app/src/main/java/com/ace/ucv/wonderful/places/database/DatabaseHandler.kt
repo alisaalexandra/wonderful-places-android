@@ -8,8 +8,9 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import com.ace.ucv.wonderful.places.domain.WonderfulPlaceDO
 
-class DatabaseHandler(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHandler(context: Context) : SQLiteOpenHelper(
+    context, DATABASE_NAME, null, DATABASE_VERSION
+) {
 
     companion object {
         private const val DATABASE_VERSION = 1
