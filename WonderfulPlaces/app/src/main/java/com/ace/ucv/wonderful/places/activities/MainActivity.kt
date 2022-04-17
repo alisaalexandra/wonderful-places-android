@@ -1,7 +1,12 @@
 package com.ace.ucv.wonderful.places.activities
 
-import android.app.Activity
+import android.annotation.SuppressLint
+import android.app.*
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,14 +24,45 @@ import com.ace.ucv.wonderful.places.utils.SwipeToEditCallback
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var notificationManager: NotificationManager
+    private lateinit var notificationChannel: NotificationChannel
+    private lateinit var builder: Notification.Builder
+    private val channelId = "i.apps.notifications"
+    private val description = "Test notification"
 
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
+    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         fabAddWonderfulPlace.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.GREEN
+                notificationChannel.enableVibration(false)
+                notificationManager.createNotificationChannel(notificationChannel)
+
+                builder = Notification.Builder(this, channelId)
+                    .setSmallIcon(R.drawable.ic_notifications_none_black)
+                    .setContentTitle("Hello Stranger!")
+                    .setContentText("Thanks for using our application.")
+                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_notifications_none_black))
+                    .setContentIntent(pendingIntent)
+            } else {
+
+                builder = Notification.Builder(this)
+                    .setSmallIcon(R.drawable.ic_notifications_none_black)
+                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_notifications_none_black))
+                    .setContentTitle("Hello Stranger!")
+                    .setContentText("Thanks for using our application.")
+                    .setContentIntent(pendingIntent)
+            }
+            notificationManager.notify(1234, builder.build())
             val intent = Intent(this@MainActivity, AddWonderfulPlaceActivity::class.java)
 
             startActivityForResult(intent, ADD_PLACE_ACTIVITY_REQUEST_CODE)
