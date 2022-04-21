@@ -15,4 +15,8 @@
 
     <string name="btn_text_view_on_map">VIEW ON MAP</string>
     <string name="add_place_select_current_location_text">SELECT CURRENT LOCATION</string>
+    <string name="accelerometer_x_value">X Value: %1$.2f</string>
+    <string name="accelerometer_y_value">Y Value: %1$.2f</string>
+    <string name="accelerometer_z_value">Z Value: %1$.2f</string>
+    <string name="accelerometer_title">Accelerometer</string>
 </resources>

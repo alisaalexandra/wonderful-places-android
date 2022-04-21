@@ -22,6 +22,7 @@ import com.ace.ucv.wonderful.places.domain.WonderfulPlaceDO
 import com.ace.ucv.wonderful.places.utils.SwipeToDeleteCallback
 import com.ace.ucv.wonderful.places.utils.SwipeToEditCallback
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var notificationManager: NotificationManager
@@ -37,11 +38,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        viewAccelerometer.setOnClickListener {
+            val accelerometerIntent = Intent(this@MainActivity, AccelerometerActivity::class.java)
+            startActivity(accelerometerIntent)
+        }
+
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent =
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         fabAddWonderfulPlace.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+                notificationChannel =
+                    NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
                 notificationChannel.enableLights(true)
                 notificationChannel.lightColor = Color.GREEN
                 notificationChannel.enableVibration(false)
@@ -51,13 +60,23 @@ class MainActivity : AppCompatActivity() {
                     .setSmallIcon(R.drawable.ic_notifications_none_black)
                     .setContentTitle("Hello Stranger!")
                     .setContentText("Thanks for using our application.")
-                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_notifications_none_black))
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            this.resources,
+                            R.drawable.ic_notifications_none_black
+                        )
+                    )
                     .setContentIntent(pendingIntent)
             } else {
 
                 builder = Notification.Builder(this)
                     .setSmallIcon(R.drawable.ic_notifications_none_black)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_notifications_none_black))
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            this.resources,
+                            R.drawable.ic_notifications_none_black
+                        )
+                    )
                     .setContentTitle("Hello Stranger!")
                     .setContentText("Thanks for using our application.")
                     .setContentIntent(pendingIntent)
@@ -76,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == ADD_PLACE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 getWonderfulPlacesListFromLocalDB()
-            }else{
+            } else {
                 Log.e("Activity", "Cancelled or Back Pressed")
             }
         }
@@ -145,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         deleteItemTouchHelper.attachToRecyclerView(rv_wonderful_places_list)
     }
 
-    companion object{
+    companion object {
         private const val ADD_PLACE_ACTIVITY_REQUEST_CODE = 1
         internal const val EXTRA_PLACE_DETAILS = "extra_place_details"
     }

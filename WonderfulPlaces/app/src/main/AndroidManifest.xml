@@ -45,6 +45,12 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".activities.AccelerometerActivity"
+            android:screenOrientation="fullSensor" >
+        </activity>
+
+
+        <activity
             android:name=".activities.MapActivity"
             android:label="Wonderful Place on Map"
             android:screenOrientation="portrait"
