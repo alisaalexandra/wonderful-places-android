@@ -12,14 +12,15 @@ import com.ace.ucv.wonderful.places.R
 
 
 class AccelerometerActivity : AppCompatActivity(), SensorEventListener {
+
     //set instances for the sensorManager, accelerometer, and textViews
     private var sensorManager: SensorManager? = null
     private var accelerometer: Sensor? = null
     private var xValue: TextView? = null
     private var yValue: TextView? = null
     private var zValue: TextView? = null
-    override fun onSensorChanged(sensorEvent: SensorEvent) {
 
+    override fun onSensorChanged(sensorEvent: SensorEvent) {
         //get the current values of the accelerometer for each axis
         val currentXvalue = sensorEvent.values[0]
         val currentYValue = sensorEvent.values[1]
@@ -33,7 +34,6 @@ class AccelerometerActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, i: Int) {
-
         //accelerometer does not report accuracy changes
     }
 
